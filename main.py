@@ -1,5 +1,5 @@
 '''
-Homework 1
+Homework 1 (aka hw-03)
 Please pay attention that the names of the function parameters were renamed 
 in order to prevent conflicts with the outer scope
 '''
