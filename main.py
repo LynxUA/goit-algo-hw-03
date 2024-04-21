@@ -32,14 +32,20 @@ def get_numbers_ticket(min_number: int, max_number: int, quantity: int) -> list[
     '''
     Generates numbers for a lottery
     '''
-    random_nums = []
-    for _ in range(1, quantity):
-        random_nums.append(random.randint(min_number, max_number))
-    return random_nums
+    if quantity <= 0:
+        return []
+    if max_number - min_number < quantity:
+        print(f"Specified range can't have {quantity} number")
+        return []
+    random_nums = set()
+    while len(random_nums) != quantity:
+        random_nums.add(random.randint(min_number, max_number))
+    return sorted(random_nums)
 
-print(get_numbers_ticket(1, 10, 10))
+print(get_numbers_ticket(1, 10, 100))
 print(get_numbers_ticket(1, 10, -10))
 print(get_numbers_ticket(-1, 10, 10))
+print(get_numbers_ticket(1, 2, 10))
 print("############## Task 2 end ##############")
 
 print("############## Task 3 start ##############")
@@ -84,8 +90,8 @@ def get_upcoming_birthdays(users_birthdays: list[dict]) -> list[dict]:
         birthday = datetime.strptime(user["birthday"], "%Y.%m.%d").date()
         birthday_this_year = date(current_date.year, birthday.month, birthday.day)
         start_of_the_year = date(current_date.year, 1, 1)
-        current_week = int((current_date - start_of_the_year).days / 7)
-        birthday_week = int((birthday_this_year - start_of_the_year).days / 7)
+        current_week = (current_date - start_of_the_year).days // 7
+        birthday_week = (birthday_this_year - start_of_the_year).days // 7
         if current_week == birthday_week:
             birthday_weekdate = birthday_this_year.isoweekday()
             if birthday_weekdate == 6:
